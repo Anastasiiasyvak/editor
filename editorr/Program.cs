@@ -2,7 +2,7 @@
 string our_sentence = Console.ReadLine();
 string[] separators = { " ", ",", ".", "!", "?", ":", ";" };
 string[] our_words = our_sentence.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-string PathToFile = "/home/nastia/for_new_projects/editorr/words_list.txt";
+string PathToFile = @"C:\Users\Admin\RiderProjects\editor\words_list.txt";
 string[] file_words = File.ReadAllLines(PathToFile);
 List<string> incorrect_words = new List<string>();
 Dictionary<string, List<string>> word_replacement = new Dictionary<string, List<string>>();
@@ -142,6 +142,3 @@ int LevenshteinDistance(string row, string column)
 
     return matrix[row.Length, column.Length];
 }
-
-
-
