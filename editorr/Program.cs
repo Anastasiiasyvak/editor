@@ -12,10 +12,10 @@ foreach (string word in our_words)
     foreach (string word_f in file_words)
     {
          if (word.ToLower() == word_f.ToLower())
-        {
-            found = true;
-            break;
-        }
+         {
+             found = true;
+             break;
+         }
     }
 
     if (!found)
@@ -32,7 +32,7 @@ if (incorrect_words.Count > 0)
     Console.WriteLine($"Looks like you have typos in next words: {string.Join(",", incorrect_words)}");
     foreach (string word in incorrect_words)
     {
-        if (word_replacement.TryGetValue(word, out List<string> possible_words)) // якщо ми маємо word у word_repl. і за допомогою out ми вносимо можливі слова до possible words
+        if (word_replacement.TryGetValue(word, out List<string> possible_words))
         {
             Console.WriteLine($"Word suggestions for {word}: {string.Join(",", possible_words)}");
         }
@@ -79,38 +79,39 @@ bool ChangedOrder(string first_word, string second_word)
         return false;
     }
 
-    int WordLength = first_word.Length;
+    int wordLength = first_word.Length;
     int transpositions = 0;
     int i = 0;
-    while (i < WordLength && first_word[i] == second_word[i])
+    while (i < wordLength && char.ToLower(first_word[i]) == char.ToLower(second_word[i]))
     {
         i++;
     }
 
-    if (i == WordLength)
+    if (i == wordLength)
     {
         return false;
     }
 
-    
-    while (i < WordLength)
+    char[] firstWordChars = first_word.ToCharArray();
+    char[] secondWordChars = second_word.ToCharArray();
+    while (i < wordLength)
     {
-        if (first_word[i] != second_word[i])
+        if (char.ToLower(firstWordChars[i]) != char.ToLower(secondWordChars[i]))
         {
             int s = i + 1;
-            while (s < WordLength && first_word[s] != second_word[i])
+            while (s < wordLength && char.ToLower(firstWordChars[s]) != char.ToLower(secondWordChars[i]))
             {
                 s++;
             }
 
-            if (s == WordLength)
+            if (s == wordLength)
             {
                 return false;
             }
             
-            char swap_char = first_word[i];
-            first_word = first_word.Remove(i, 1).Insert(i, second_word[i].ToString());
-            first_word = first_word.Remove(s, 1).Insert(s, swap_char.ToString());
+            char swap_char = firstWordChars[i];
+            firstWordChars[i] = firstWordChars[s];
+            firstWordChars[s] = swap_char;
             transpositions++;
         }
 
